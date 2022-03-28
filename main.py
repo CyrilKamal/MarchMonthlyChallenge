@@ -1,19 +1,19 @@
 
 class Solution:
   def getFactors(self, n: int) -> List[List[int]]:
-    ans = []
+    result = []
 
-    def dfs(n: int, s: int, path: List[int]) -> None:
+    def defineFactors(n: int, s: int, container: List[int]) -> None:
       if n <= 1:
-        if len(path) > 1:
-          ans.append(path.copy())
+        if len(container) > 1:
+          result.append(container.copy())
         return
 
       for i in range(s, n + 1):
         if n % i == 0:
-          path.append(i)
-          dfs(n // i, i, path)
-          path.pop()
+          container.append(i)
+          defineFactors(n // i, i, container)
+          container.pop()
 
-    dfs(n, 2, [])  # requirements state *factors should be in the range [2,n-1].
-    return ans
+    defineFactors(n, 2, [])  # requirements state *factors should be in the range [2,n-1].
+    return result
